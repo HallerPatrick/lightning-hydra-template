@@ -1,8 +1,16 @@
 _target_: src.data.hf_datamodule.HFDataModuleForCausalLM
-dataset_name: wikitext
-dataset_config_name: wikitext-2-raw-v1
 tokenizer_name: EleutherAI/pythia-14m
 batch_size: 2 # Needs to be divisible by the number of devices (e.g., if in a distributed setup)
 # train_val_test_split: [55_000, 5_000, 10_000]
-num_workers: 0
+num_workers: 2
+preprocess_procs: 8
 pin_memory: False
+
+datasets:
+  - dataset_name: wikitext
+    dataset_config_name: wikitext-2-raw-v1
+    column_name: text
+
+  # - dataset_name: wikitext
+  #   dataset_config_name: wikitext-2-raw-v1
+  #   column_name: text
